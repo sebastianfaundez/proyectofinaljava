@@ -7,6 +7,7 @@ import tech.curso.usuariosapi.repository.Repository;
 
 import java.util.List;
 
+
 @RestController
 public class Controller {
 
@@ -33,10 +34,12 @@ public class Controller {
 
 
     @PutMapping("edit/{id}")
-    public String update(@PathVariable String id, @RequestBody Usuario usuario){
+    public String update(@PathVariable Long id, @RequestBody Usuario usuario){
         Usuario updateUsuario = repo.findById(id).get();
         updateUsuario.setNombre(usuario.getNombre());
         updateUsuario.setCorreo(usuario.getCorreo());
+        updateUsuario.setPassword(usuario.getPassword());
+        updateUsuario.setIsactive(usuario.isIsactive());
         repo.save(updateUsuario);
         return "Usuario editado correctamente.";
 
@@ -44,8 +47,7 @@ public class Controller {
 
 
     @DeleteMapping("delete/{id}")
-    public String delete(@PathVariable String id){
-
+    public String delete(@PathVariable Long id){
         Usuario deleteUsuario = repo.findById(id).get();
         repo.delete(deleteUsuario);
         return "Usuario eliminado correctamente.";

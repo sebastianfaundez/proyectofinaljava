@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Telefono {
 
     @Id
-    private String usuario_id;
+    private Long usuario_id;
     private String numero;
     private String cod_ciudad;
     private String cod_pais;
