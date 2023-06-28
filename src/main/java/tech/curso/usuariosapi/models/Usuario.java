@@ -1,17 +1,29 @@
 package tech.curso.usuariosapi.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 //import java.util.UUID;
 
 @Entity
-public class Usuario {
+@Table(name = "usuario")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+//public class Usuario extends RepresentationModel<Usuario> {
+public class Usuario implements Serializable {
 
 
 
@@ -37,9 +49,12 @@ public class Usuario {
     @Setter
     private String Nombre;
 
-    @Column
+
+    @Column(nullable = false, unique = true)
     @Getter
     @Setter
+    @NotEmpty(message = "No puede estar vacío")
+    @Email(message = "error de formato")
     private String correo;
 
     @Column
@@ -78,9 +93,12 @@ public class Usuario {
         modified = LocalDateTime.now();
     }
 
-
+    /*
     @OneToMany(targetEntity = Telefono.class, cascade = CascadeType.ALL)
     @JoinColumn(name="usuario_id", referencedColumnName = "id")
+    */
+
+    @OneToMany(mappedBy="usuarioId")
     private List<Telefono> telefonos;
 
 

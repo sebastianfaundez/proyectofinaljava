@@ -6,15 +6,27 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Telefono {
+@Table(name="telefono")
+@Getter
+@Setter
+public class Telefono implements Serializable {
 
     @Id
-    private Long usuario_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_telefono")
+    private Integer idTelefono;
+
+    @Column(name="usuario_id")
+    private Long usuarioId;
+
     private String numero;
-    private String cod_ciudad;
-    private String cod_pais;
+
+    private String codCiudad;
+
+    private String codPais;
 
 
 }

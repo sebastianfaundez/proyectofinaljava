@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tech.curso.usuariosapi.models.Usuario;
 import tech.curso.usuariosapi.repository.Repository;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -26,11 +27,21 @@ public class Controller {
         return repo.findAll();
     }
 
+
     @PostMapping("create")
-    public String post(@RequestBody Usuario usuario){
-            repo.save(usuario);
-            return "Usuario creado";
+    public String post(@Valid @RequestBody Usuario usuario){
+
+        repo.save(usuario);
+        return "Usuario creado";
     }
+
+
+    /*
+    @PostMapping("create")
+    public Usuario post(@Valid @RequestBody Usuario usuario){
+        return usuario;
+    }
+    */
 
 
     @PutMapping("edit/{id}")
